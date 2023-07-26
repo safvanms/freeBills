@@ -53,7 +53,9 @@ const Home = () => {
     }
   };
   
-  
+  const calculateTotal = () => {
+    return data.reduce((total, elem) => total + parseFloat(elem.price), 0);
+  };
 
   const onClose = () => {
     setOpen(false)
@@ -79,11 +81,15 @@ const Home = () => {
           <BsDownload size={20} />
         </button>}
        {data.length>0&& <button className="clear__button" onClick={clearData}>
-          <MdClear size={20} style={{marginBottom:"1px"}} /> Clear all
+          <MdClear size={20} style={{marginBottom:"1px"}} /> Delete
         </button>}
       </div>
 
       <div className="sheet" id='table-to-convert'>
+        <div className='heading'>
+        <h1 >EMPIRE ELECTRICALS</h1>
+        <h4 >Electrical & Plumbing</h4>
+        </div>
         <table  className="table__container">
           <thead className="table__heads">
             <tr>
@@ -104,6 +110,7 @@ const Home = () => {
             ))}
           </tbody>
         </table>
+        <h5 >Grand Total: {calculateTotal()} /-</h5>
       </div>
 
       {open && (
