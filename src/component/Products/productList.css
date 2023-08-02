@@ -1,0 +1,32 @@
+.page__logo {
+  width: 400px;
+}
+
+.table__container__products {
+  width: 35%;
+  border: 1px solid rgb(228, 227, 227);
+
+}
+
+.line {
+  margin-top:10px;
+  border-bottom: 1px solid rgb(194, 194, 194);
+  width: 450px;
+  height: 1px;
+}
+
+select , option{
+     width: 100%;
+}
+
+@media (max-width: 768px) {
+  .page__logo {
+    width: 60%;
+  }
+  .line {
+    width: 70%;
+  }
+  .table__container__products {
+    width: 90%;
+  }
+}
