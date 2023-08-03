@@ -85,10 +85,10 @@ const ProductList = () => {
         )}
       </div>
 
-      <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
+      <div className="sheet" ref={componentPDF} style={{ width: '100%'}}>
         <div className="heading">
           <img src={LOGO} alt="logo" className="page__logo" />
-          <p style={{margin:"10px 0 0 0",fontSize:'9px'}}>Contact : +91 81 56 928 557 |  +91 79 07 132 007</p>
+          <p>Contact : +91 81 56 928 557 |  +91 79 07 132 007</p>
           <div className='line' ></div>
         </div>
 
@@ -102,7 +102,7 @@ const ProductList = () => {
           </thead>
           <tbody className="table__body">
             {data?.map((elem, i) => (
-              <tr>
+              <tr key={elem.id}>
                 <td>{i + 1}</td>
                 <td>{elem.item}</td>
                 <td>

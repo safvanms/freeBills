@@ -1,5 +1,5 @@
-import React, { useEffect , useRef, useState } from 'react'
-import {useReactToPrint} from 'react-to-print'
+import React, { useEffect, useRef, useState } from 'react'
+import { useReactToPrint } from 'react-to-print'
 import './priceList.css'
 import { BsDownload } from 'react-icons/bs'
 import { MdAdd, MdClear } from 'react-icons/md'
@@ -39,75 +39,90 @@ const PriceList = () => {
     onClose()
   }
 
+  const pageStyle = {
+    width: '100%',
+  }
+
   const generatePDF = useReactToPrint({
-    content: ()=>componentPDF.current,
-    onAfterPrint: ()=>alert('Saved as Pdf ')
-  })
-  
+    content: () => componentPDF.current,
+    onAfterPrint: () => alert('Good job!'),
+    pageStyle: pageStyle,
+    print: false ,
+    fileName: 'empire.pdf', 
+  });
+
   const calculateTotal = () => {
-    return data.reduce((total, elem) => total + parseFloat(elem.price), 0);
-  };
+    return data.reduce((total, elem) => total + parseFloat(elem.price), 0)
+  }
 
   const onClose = () => {
     setOpen(false)
   }
 
   const clearData = () => {
-    const confirmClear = window.confirm('Are you sure you want to clear the data?');
+    const confirmClear = window.confirm(
+      'Are you sure you want to clear the data?',
+    )
     if (confirmClear) {
-      localStorage.removeItem('tableData');
-      setData([]);
+      localStorage.removeItem('tableData')
+      setData([])
     }
-  };
+  }
 
   useEffect(() => {
     localStorage.setItem('tableData', JSON.stringify(data))
   }, [data])
 
-
   return (
     <div className="home__container">
-
       <div className="buttons">
         <div className="add__button" onClick={() => setOpen(true)}>
           <MdAdd size={25} />
         </div>
-        {data.length>0&&<div className="download__button" onClick={generatePDF}>
-          <BsDownload size={22} />
-        </div>}
-       {data.length>0&& <div className="clear__button" onClick={clearData}>
-          <MdClear size={25}  />
-        </div>}
+        {data.length > 0 && (
+          <div className="download__button" onClick={generatePDF}>
+            <BsDownload size={22} />
+          </div>
+        )}
+        {data.length > 0 && (
+          <div className="clear__button" onClick={clearData}>
+            <MdClear size={25} />
+          </div>
+        )}
       </div>
 
-      <div className="sheet" ref={componentPDF} style={{width:"100%"}}>
-      <div className="heading">
-          <img src={LOGO} alt="logo" className="page__logo" />
-          <p style={{margin:"10px 0 0 0",fontSize:'9px'}}>Contact : +91 81 56 928 557 |  +91 79 07 132 007</p>
-          <div className='line' ></div>
-        </div>
+      <div className="sheet__container">
+        <div className="sheet"  ref={componentPDF} style={{ width: '100%' }}>
+          <div className="heading">
+            <img src={LOGO} alt="logo" className="page__logo" />
+            <p>Contact : +91 81 56 928 557 | +91 79 07 132 007</p>
+            <div className="line"></div>
+          </div>
 
-        <table  className="table__container">
-          <thead className="table__heads">
-            <tr>
-              <th>Sl no.</th>
-              <th>Item</th>
-              <th>Unit</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody className="table__body">
-            {data?.map((elem, i) => (
+          <table className="table__container">
+            <thead className="table__heads">
               <tr>
-                <td>{i + 1}</td>
-                <td>{elem.item}</td>
-                <td>{elem.unit}</td>
-                <td>{elem.price}</td>
+                <th>Sl no.</th>
+                <th>Item</th>
+                <th>Unit</th>
+                <th>Price</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <h5 className='total__sec' style={{}}>Grand Total : {calculateTotal()} /-</h5>
+            </thead>
+            <tbody className="table__body">
+              {data?.map((elem, i) => (
+                <tr key={elem.id}>
+                  <td>{i + 1}</td>
+                  <td>{elem.item}</td>
+                  <td>{elem.unit}</td>
+                  <td>{elem.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <h5 className="total__sec" style={{}}>
+            Grand Total : {calculateTotal()} /-
+          </h5>
+        </div>
       </div>
 
       {open && (
@@ -146,7 +161,7 @@ const PriceList = () => {
                   required
                 />
               </div>
-              <div className='dialogue__btn'>
+              <div className="dialogue__btn">
                 <button type="submit">Submit</button>
                 <button type="button" onClick={onClose}>
                   Cancel
