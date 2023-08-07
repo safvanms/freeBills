@@ -83,7 +83,7 @@ const PriceList = () => {
   })
 
   const calculateTotal = () => {
-    return data.reduce((total, elem) => total + parseFloat(elem.price), 0)
+    return data.reduce((total, elem) => total + parseFloat(elem.price*elem.quantity), 0)
   }
 
   const onClose = () => {

@@ -16,11 +16,10 @@
 .home__buttons{
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 250px;
+  gap: 20px;
 }
 
-.products__page,.bill__page{
+.products__page,.bill__page,.invoice__page{
 height: 35px;
 width: 100px;
 border-radius: 7px;
@@ -38,6 +37,10 @@ cursor: pointer;
 
 .bill__page{
   background-color: black;
+}
+
+.invoice__page{
+  background-color: rgb(65, 65, 69);
 }
 
 @media (max-width:768px){

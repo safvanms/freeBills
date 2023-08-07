@@ -14,6 +14,9 @@ export default function Home() {
         <Link to="/bill-with-price" style={{ textDecoration: 'none' }}>
           <div className="bill__page"> Generate Bill </div>
         </Link>
+        <Link to="/invoice" style={{ textDecoration: 'none' }}>
+          <div className="invoice__page"> Invoice </div>
+        </Link>
       </div>
     </div>
   )
