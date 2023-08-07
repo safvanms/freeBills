@@ -150,7 +150,7 @@ const PriceList = () => {
                   <td>
                     {elem.quantity} {elem.unit}
                   </td>
-                  <td>{elem.price}</td>
+                  <td>{elem.price*elem.quantity}</td>
                 </tr>
               ))}
             </tbody>
