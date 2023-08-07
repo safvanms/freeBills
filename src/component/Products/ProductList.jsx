@@ -84,7 +84,6 @@ const ProductList = () => {
           </div>
         )}
       </div>
-
       <div className="sheet" ref={componentPDF} style={{ width: '100%'}}>
         <div className="heading">
           <img src={LOGO} alt="logo" className="page__logo" />
@@ -97,7 +96,7 @@ const ProductList = () => {
             <tr>
               <th>Sl no.</th>
               <th>Item</th>
-              <th>Quantity</th>
+              <th>Quantity/unit</th>
             </tr>
           </thead>
           <tbody className="table__body">

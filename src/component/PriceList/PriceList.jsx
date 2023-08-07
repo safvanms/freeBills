@@ -11,6 +11,7 @@ const PriceList = () => {
   const [data, setData] = useState([])
   const [formData, setFormData] = useState({
     item: '',
+    quantity: '',
     unit: '',
     price: '',
   })
@@ -25,17 +26,24 @@ const PriceList = () => {
   }, [])
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-      id: Date.now().toString(),
-    })
+    if (e.target.name === 'unit') {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      })
+    } else {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+        id: Date.now().toString(),
+      })
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     setData([...data, formData])
-    setFormData({ item: '', unit: '', price: '' })
+    setFormData({ item: '',quantity:'', unit: '', price: '' })
     onClose()
   }
 
@@ -73,6 +81,8 @@ const PriceList = () => {
     localStorage.setItem('tableData', JSON.stringify(data))
   }, [data])
 
+
+
   return (
     <div className="home__container">
       <div className="buttons">
@@ -104,7 +114,7 @@ const PriceList = () => {
               <tr>
                 <th>Sl no.</th>
                 <th>Item</th>
-                <th>Unit</th>
+                <th>Quantity</th>
                 <th>Price</th>
               </tr>
             </thead>
@@ -113,7 +123,7 @@ const PriceList = () => {
                 <tr key={elem.id}>
                   <td>{i + 1}</td>
                   <td>{elem.item}</td>
-                  <td>{elem.unit}</td>
+                  <td>{elem.quantity} {elem.unit}</td>
                   <td>{elem.price}</td>
                 </tr>
               ))}
@@ -141,14 +151,26 @@ const PriceList = () => {
                 />
               </div>
               <div>
-                <label>Unit:</label>
+                <label>Quantity:</label>
                 <input
                   type="number"
-                  name="unit"
-                  value={formData.unit}
+                  name="quantity"
+                  value={formData.quantity}
                   onChange={handleChange}
                   required
                 />
+              </div>
+              <div>
+                <label>Unit:</label>
+                <select
+                  value={formData.unit}
+                  name="unit"
+                  onChange={handleChange}
+                >
+                  <option value="">Select unit</option>
+                  <option value="Piece">Piece</option>
+                  <option value="Meter">Meter</option>
+                </select>
               </div>
               <div>
                 <label>Price:</label>
