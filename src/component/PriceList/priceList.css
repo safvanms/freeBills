@@ -19,13 +19,13 @@
 }
 
 .buttons div {
- width: 60px;
- height: 60px;
- border-radius: 50%;
- display: flex;
- justify-content: center;
- align-items: center;
-  }
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .add__button {
   background-color: #28a745;
@@ -54,23 +54,21 @@
   background-color: rgb(170, 38, 34);
 }
 
-.heading{
-width: 100%;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-
+.heading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.heading p{
-font-size: 13px;
+.heading p {
+  font-size: 13px;
 }
 
 /* table section */
 
-
-.sheet__container{
+.sheet__container {
   width: 50%;
 }
 
@@ -89,21 +87,27 @@ font-size: 13px;
   border: 1px solid rgba(228, 227, 227, 0.858);
 }
 
-.total__sec{
+.total__sec {
   width: 100%;
-text-align: right;
+  text-align: right;
 }
 
 .table__heads {
   background-color: rgb(33, 33, 33) !important;
   color: #fff;
-
 }
 
 .table__heads th {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+.table__body tr:hover,
+.table__body tr:nth-child(even):hover {
+  background-color: #cccc;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .table__body tr:nth-child(even) {
@@ -189,8 +193,7 @@ text-align: right;
 }
 
 @media (max-width: 800px) {
-
-  .sheet__container{
+  .sheet__container {
     width: 100%;
   }
 
@@ -199,11 +202,10 @@ text-align: right;
     padding-inline: 10px;
   }
 
-  .total__sec{
+  .total__sec {
     width: 95%;
-  text-align: right;
+    text-align: right;
   }
-
 
   .sheet {
     padding: 20px 0px 0px 0px;
@@ -212,8 +214,7 @@ text-align: right;
     width: 90%;
   }
 
-  .heading p{
-font-size: 10px;
-}
-
+  .heading p {
+    font-size: 10px;
+  }
 }

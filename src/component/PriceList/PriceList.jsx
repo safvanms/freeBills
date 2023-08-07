@@ -5,10 +5,10 @@ import { BsDownload } from 'react-icons/bs'
 import { MdAdd, MdClear } from 'react-icons/md'
 import LOGO from '../../assets/logo.jpeg'
 
-
 const PriceList = () => {
   const [open, setOpen] = useState(false)
   const [data, setData] = useState([])
+  const [editId, setEditId] = useState(null)
   const [formData, setFormData] = useState({
     item: '',
     quantity: '',
@@ -40,23 +40,47 @@ const PriceList = () => {
     }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const addItem = () => {
     setData([...data, formData])
-    setFormData({ item: '',quantity:'', unit: '', price: '' })
+    setFormData({ item: '', quantity: '', unit: '', price: '' })
     onClose()
   }
 
-  // const pageStyle = {
-  //   width: '100%',
-  // }
+  const handleEdit = (ID) => {
+    setOpen(true)
+    const rawItems = data.find((item) => {
+      return item.id === ID
+    })
+    setFormData(rawItems)
+    setEditId(ID)
+  }
+
+  const editItem = (editId) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === editId ? { ...formData, id: editId } : item
+      )
+    );
+    setFormData({ item: '', quantity: '', unit: '', price: '' });
+    setEditId(null);
+    onClose(true);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (editId) {
+      editItem(editId)
+    } else {
+      addItem()
+    }
+  }
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
     onAfterPrint: () => alert('Good job!'),
-    print: false ,
-    fileName: 'empire.pdf', 
-  });
+    print: false,
+    fileName: 'empire.pdf',
+  })
 
   const calculateTotal = () => {
     return data.reduce((total, elem) => total + parseFloat(elem.price), 0)
@@ -64,6 +88,8 @@ const PriceList = () => {
 
   const onClose = () => {
     setOpen(false)
+    setFormData({ item: '', quantity: '', unit: '', price: '' })
+    setEditId(null)
   }
 
   const clearData = () => {
@@ -79,7 +105,6 @@ const PriceList = () => {
   useEffect(() => {
     localStorage.setItem('tableData', JSON.stringify(data))
   }, [data])
-
 
 
   return (
@@ -101,7 +126,7 @@ const PriceList = () => {
       </div>
 
       <div className="sheet__container">
-        <div className="sheet"  ref={componentPDF} style={{ width: '100%' }}>
+        <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
           <div className="heading">
             <img src={LOGO} alt="logo" className="page__logo" />
             <p>Contact : +91 81 56 928 557 | +91 79 07 132 007</p>
@@ -119,10 +144,12 @@ const PriceList = () => {
             </thead>
             <tbody className="table__body">
               {data?.map((elem, i) => (
-                <tr key={elem.id}>
+                <tr key={elem.id} onClick={() => handleEdit(elem.id)}>
                   <td>{i + 1}</td>
                   <td>{elem.item}</td>
-                  <td>{elem.quantity} {elem.unit}</td>
+                  <td>
+                    {elem.quantity} {elem.unit}
+                  </td>
                   <td>{elem.price}</td>
                 </tr>
               ))}
