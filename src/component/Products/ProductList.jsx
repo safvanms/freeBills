@@ -148,7 +148,11 @@ const ProductList = () => {
                 >
                   <option value="">Select unit</option>
                   <option value="Piece">Piece</option>
+                  <option value="Feet">Feet</option>
                   <option value="Meter">Meter</option>
+                  <option value="Kg">Kg</option>
+                  <option value="Litre">Litre</option>
+                  <option value="Box">Box</option>
                 </select>
               </div>
 

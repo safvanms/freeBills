@@ -20,7 +20,7 @@ select , option{
 
 @media (max-width: 768px) {
   .page__logo {
-    width: 60%;
+    width: 55%;
   }
   .line {
     width: 70%;
