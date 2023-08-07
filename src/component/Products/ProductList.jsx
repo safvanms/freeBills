@@ -8,6 +8,7 @@ import LOGO from '../../assets/logo.jpeg'
 const ProductList = () => {
   const [open, setOpen] = useState(false)
   const [data, setData] = useState([])
+  const [editId, setEditId] = useState(null)
   const [formData, setFormData] = useState({
     item: '',
     quantity: '',
@@ -38,11 +39,34 @@ const ProductList = () => {
     }
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleAdd = () =>{
     setData([...data, formData])
     setFormData({ item: '', quantity: '', unit: '' })
     onClose()
+  }
+
+  const handleEdit = (ID)=>{
+    const rawItems = data.find((item)=>item.id === ID)
+    setFormData(rawItems)
+    setEditId(ID)
+    setOpen(true)
+  }
+
+  const editItem = (editId) =>{
+    setData((prevData)=>prevData.map((item)=>item.id===editId?{...formData,id:editId}:item))
+    setFormData({ item: '', quantity: '', unit: '', price: '' });
+    setEditId(null);
+    onClose(true);
+  }
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (editId){
+      editItem(editId)
+    }else{
+      handleAdd()
+    }
   }
 
   const generatePDF = useReactToPrint({
@@ -52,6 +76,8 @@ const ProductList = () => {
 
   const onClose = () => {
     setOpen(false)
+    setFormData({ item: '', quantity: '', unit: '', price: '' });
+    setEditId(null);
   }
 
   const clearData = () => {
@@ -65,6 +91,7 @@ const ProductList = () => {
   useEffect(() => {
     localStorage.setItem('products', JSON.stringify(data))
   }, [data])
+
 
 
   return (
@@ -101,7 +128,7 @@ const ProductList = () => {
           </thead>
           <tbody className="table__body">
             {data?.map((elem, i) => (
-              <tr key={elem.id}>
+              <tr key={elem.id} onClick={()=>handleEdit(elem.id)}>
                 <td>{i + 1}</td>
                 <td>{elem.item}</td>
                 <td>
