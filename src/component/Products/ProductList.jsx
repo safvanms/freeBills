@@ -71,7 +71,6 @@ const ProductList = () => {
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
-    onAfterPrint: () => alert('Bill generated Successfully ! '),
   })
 
   const onClose = () => {

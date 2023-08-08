@@ -17,10 +17,17 @@ export default function Invoice() {
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
-    onAfterPrint: () => alert('Good job!'),
     print: false,
     fileName: 'invoice.pdf',
+
+  
   })
+
+
+  const downloadPdf = () =>{
+    generatePDF()
+    
+  }
 
   const onClose = () => {
     setOpen(false)
@@ -55,6 +62,10 @@ export default function Invoice() {
     }
   }
 
+  const calculateTotal = () => {
+    return data.reduce((total, elem) => total + parseFloat(elem.price), 0)
+  }
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <div className="buttons">
@@ -62,7 +73,7 @@ export default function Invoice() {
           <MdAdd size={25} />
         </div>
         {data.length > 0 && (
-          <div className="download__button" onClick={generatePDF}>
+          <div className="download__button" onClick={downloadPdf}>
             <BsDownload size={22} />
           </div>
         )}
@@ -100,7 +111,12 @@ export default function Invoice() {
                 ))}
               </tbody>
             </table>
+            <div className="invoice__footer">
+              <div className="invoice__total__name">Total</div>
+              <div className="invoice__total">Rs.{calculateTotal()}/-</div>
+            </div>
           </div>
+          <p style={{margin:'0px', fontSize:"10px"}}>Thank you ! | Team Empire Electricals</p>
         </div>
       </div>
 

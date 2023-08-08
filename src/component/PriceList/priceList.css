@@ -89,11 +89,14 @@
 
 .total__sec {
   width: 100%;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 10px;
 }
 
 .table__heads {
-  background-color: rgb(33, 33, 33) !important;
+  background-color: rgb(9, 8, 8) !important;
   color: #fff;
 }
 
@@ -194,14 +197,15 @@
 
 /* invoice styles */
 
-/* .invoice{
-  width: 50%;
-} */
 
 .invoice__container {
   width: 100%;
   border: 1px solid #aaaa;
   margin-top: 20px;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .invoice__table {
@@ -218,6 +222,7 @@
   padding: 10px;
   border: 1px solid #cccc;
   background-color: #f4f6f4;
+  font-weight: normal;
 }
 
 .invoice__heading th:nth-child(1) {
@@ -237,7 +242,30 @@
   text-align: center;
   align-items: flex-start;
   border: 1px solid #ddd;
+  font-size: 14px;
 }
+
+.invoice__data td:nth-child(1){
+color: grey;
+}
+
+.invoice__footer{
+  height: 40px;
+  border-top: 1px solid #dddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 10px;
+}
+
+
+.invoice__total__name{
+  width: 75%;
+  border-right: 1px solid #dddd;
+}
+
+
+
 
 @media (max-width: 800px) {
   .sheet__container {
@@ -247,11 +275,6 @@
   .table__container {
     width: 95%;
     padding-inline: 10px;
-  }
-
-  .total__sec {
-    width: 95%;
-    text-align: right;
   }
 
   .sheet {

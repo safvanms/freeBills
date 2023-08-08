@@ -77,7 +77,6 @@ const PriceList = () => {
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
-    onAfterPrint: () => alert('Good job!'),
     print: false,
     fileName: 'empire.pdf',
   })
@@ -155,9 +154,10 @@ const PriceList = () => {
               ))}
             </tbody>
           </table>
-          <h5 className="total__sec" style={{}}>
-            Grand Total : {calculateTotal()} /-
-          </h5>
+          <div className="total__sec" >
+            <div>Grand Total </div>
+            <div> Rs. {calculateTotal()} /- </div>
+          </div>
         </div>
       </div>
 
