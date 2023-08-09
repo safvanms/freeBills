@@ -133,10 +133,10 @@ export default function Invoice() {
             </div>
           </div>
 
-          <div className="invoice__signature">
+         { data.length !==0 && (<div className="invoice__signature">
             <p>Invoice issued by Empire Electricals.</p>
             <img src={SIGN} alt="sign" />
-          </div>
+          </div>)}
 
           <p style={{ margin: '0px', fontSize: '10px' }}>
            <span>Thank you | Empire Electricals & Group of Technologies</span>
