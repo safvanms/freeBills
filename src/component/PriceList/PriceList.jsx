@@ -126,9 +126,15 @@ const PriceList = () => {
 
       <div className="sheet__container">
         <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
-          <div className="heading">
+        <div className="heading">
             <img src={LOGO} alt="logo" className="page__logo" />
-            <p>Contact : +91 81 56 928 557 | +91 79 07 132 007</p>
+            <p className="license">
+              {' '}
+              License No : B1-143/19.20 &nbsp; MSME Reg No : KL09E0004583
+            </p>
+            <p className="contact">
+              Contact : +91 81 56 928 557 | +91 79 07 132 007
+            </p>
             <div className="line"></div>
           </div>
 
@@ -171,6 +177,7 @@ const PriceList = () => {
                 <input
                   type="text"
                   name="item"
+                  placeholder='Item Name'
                   value={formData.item}
                   onChange={handleChange}
                   required
@@ -181,6 +188,7 @@ const PriceList = () => {
                 <input
                   type="number"
                   name="quantity"
+                  placeholder='Quantity'
                   value={formData.quantity}
                   onChange={handleChange}
                   required
@@ -208,6 +216,7 @@ const PriceList = () => {
                   type="number"
                   name="price"
                   step="0.01"
+                  placeholder='Price of one Quantity'
                   value={formData.price}
                   onChange={handleChange}
                   required

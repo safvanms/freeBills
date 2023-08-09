@@ -13,9 +13,10 @@
   align-items: center;
   gap: 10px;
   padding: 25px 20px 0px 20px;
-  position: absolute;
+  position: fixed;
   right: 5px;
   bottom: 20px;
+  z-index: 9999;
 }
 
 .buttons div {
@@ -62,9 +63,18 @@
   align-items: center;
 }
 
-.heading p {
-  font-size: 13px;
+.contact,.license {
+  margin: 0;
 }
+
+.license{
+  font-weight: 600;
+}
+
+.contact{
+  margin-bottom: 10px;
+}
+
 
 /* table section */
 
@@ -88,7 +98,7 @@
 }
 
 .total__sec {
-  width: 100%;
+  width: 95%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -165,6 +175,7 @@
 .dialogue__btn {
   display: flex;
   justify-content: space-around;
+  margin-top: 20px;
 }
 
 .dialog button {
@@ -202,7 +213,7 @@
   width: 100%;
   border: 1px solid #aaaa;
   margin-top: 20px;
-  height: 75vh;
+  height: 65vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -264,7 +275,23 @@ color: grey;
   border-right: 1px solid #dddd;
 }
 
+.invoice__signature{
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.invoice__signature p{
+margin: 0;
+font-size: 12px;
+}
+
+.invoice__signature img{
+  width: 150px;
+  position: relative;
+  bottom: 20px;
+}
 
 
 @media (max-width: 800px) {

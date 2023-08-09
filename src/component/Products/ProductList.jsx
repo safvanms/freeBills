@@ -39,32 +39,35 @@ const ProductList = () => {
     }
   }
 
-  const handleAdd = () =>{
+  const handleAdd = () => {
     setData([...data, formData])
     setFormData({ item: '', quantity: '', unit: '' })
     onClose()
   }
 
-  const handleEdit = (ID)=>{
-    const rawItems = data.find((item)=>item.id === ID)
+  const handleEdit = (ID) => {
+    const rawItems = data.find((item) => item.id === ID)
     setFormData(rawItems)
     setEditId(ID)
     setOpen(true)
   }
 
-  const editItem = (editId) =>{
-    setData((prevData)=>prevData.map((item)=>item.id===editId?{...formData,id:editId}:item))
-    setFormData({ item: '', quantity: '', unit: '', price: '' });
-    setEditId(null);
-    onClose(true);
+  const editItem = (editId) => {
+    setData((prevData) =>
+      prevData.map((item) =>
+        item.id === editId ? { ...formData, id: editId } : item,
+      ),
+    )
+    setFormData({ item: '', quantity: '', unit: '', price: '' })
+    setEditId(null)
+    onClose(true)
   }
-
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (editId){
+    if (editId) {
       editItem(editId)
-    }else{
+    } else {
       handleAdd()
     }
   }
@@ -75,26 +78,26 @@ const ProductList = () => {
 
   const onClose = () => {
     setOpen(false)
-    setFormData({ item: '', quantity: '', unit: '', price: '' });
-    setEditId(null);
+    setFormData({ item: '', quantity: '', unit: '', price: '' })
+    setEditId(null)
   }
 
   const clearData = () => {
-    const confirmClear = window.confirm('Are you sure you want to clear the data?');
+    const confirmClear = window.confirm(
+      'Are you sure you want to clear the data?',
+    )
     if (confirmClear) {
-      localStorage.removeItem('products');
-      setData([]);
+      localStorage.removeItem('products')
+      setData([])
     }
-  };
+  }
 
   useEffect(() => {
     localStorage.setItem('products', JSON.stringify(data))
   }, [data])
 
-
-
   return (
-    <div className="home__container">
+    <div className="home__container" >
       <div className="buttons">
         <div className="add__button" onClick={() => setOpen(true)}>
           <MdAdd size={25} />
@@ -110,34 +113,44 @@ const ProductList = () => {
           </div>
         )}
       </div>
-      <div className="sheet" ref={componentPDF} style={{ width: '100%'}}>
-        <div className="heading">
-          <img src={LOGO} alt="logo" className="page__logo" />
-          <p>Contact : +91 81 56 928 557 |  +91 79 07 132 007</p>
-          <div className='line' ></div>
-        </div>
 
-        <table className="table__container__products">
-          <thead className="table__heads">
-            <tr>
-              <th>Sl no.</th>
-              <th>Item</th>
-              <th>Quantity/unit</th>
-            </tr>
-          </thead>
-          <tbody className="table__body">
-            {data?.map((elem, i) => (
-              <tr key={elem.id} onClick={()=>handleEdit(elem.id)}>
-                <td>{i + 1}</td>
-                <td>{elem.item}</td>
-                <td>
-                  {elem.quantity}&nbsp;{elem.unit}
-                </td>
+      <div className="product_list__container" >
+        <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
+          <div className="heading">
+            <img src={LOGO} alt="logo" className="page__logo" />
+            <p className="license">
+              {' '}
+              License No : B1-143/19.20 &nbsp; MSME Reg No : KL09E0004583
+            </p>
+            <p className="contact">
+              Contact : +91 81 56 928 557 | +91 79 07 132 007
+            </p>
+            <div className="line"></div>
+          </div>
+
+
+          <table className="table__container__products">
+            <thead className="table__heads">
+              <tr>
+                <th>Sl no.</th>
+                <th>Item</th>
+                <th>Quantity/unit</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody className="table__body">
+              {data?.map((elem, i) => (
+                <tr key={elem.id} onClick={() => handleEdit(elem.id)}>
+                  <td>{i + 1}</td>
+                  <td>{elem.item}</td>
+                  <td>
+                    {elem.quantity}&nbsp;{elem.unit}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+</div>
+        </div>
 
       {open && (
         <div className="dialog-container">
@@ -149,6 +162,7 @@ const ProductList = () => {
                 <input
                   type="text"
                   name="item"
+                  placeholder="Item Name"
                   value={formData.item}
                   onChange={handleChange}
                   required
@@ -159,6 +173,7 @@ const ProductList = () => {
                 <input
                   type="number"
                   name="quantity"
+                  placeholder="Quantity"
                   value={formData.quantity}
                   onChange={handleChange}
                   required
