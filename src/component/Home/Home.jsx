@@ -3,9 +3,10 @@ import './home.css'
 import LOGO from '../../assets/logo.jpeg'
 import { Link } from 'react-router-dom'
 
+
 export default function Home() {
   return (
-    <div className="home">
+    <div className="home" >
       <img src={LOGO} alt="logo" className="home__logo" />
       <div className="home__buttons">
         <Link to="/products" style={{ textDecoration: 'none' }}>

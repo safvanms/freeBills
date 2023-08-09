@@ -1,6 +1,8 @@
 .home{
-  height: 95vh;
-  background-color: white;
+  height: 100vh;
+  background-image:url('https://www.pngitem.com/pimgs/m/178-1783514_transparent-circuit-vector-png-circuit-png-png-download.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 100%;
   display: flex;
   flex-direction: column;
