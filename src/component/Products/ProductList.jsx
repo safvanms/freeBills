@@ -34,7 +34,7 @@ const ProductList = () => {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
-        id: Date.now().toString(),
+        id: Date.now()
       })
     }
   }
@@ -127,13 +127,12 @@ const ProductList = () => {
             </p>
             <div className="line"></div>
           </div>
-
           <table className="table__container__products">
             <thead className="table__heads">
               <tr>
                 <th>Sl no.</th>
                 <th>Item</th>
-                <th>Quantity/unit</th>
+                <th>Qty/unit</th>
               </tr>
             </thead>
             <tbody className="table__body">
