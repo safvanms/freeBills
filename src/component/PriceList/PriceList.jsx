@@ -142,8 +142,8 @@ const PriceList = () => {
             <thead className="table__heads">
               <tr>
                 <th>Sl no.</th>
-                <th>Item</th>
-                <th>Quantity</th>
+                <th>Description</th>
+                <th>Qty</th>
                 <th>Price</th>
               </tr>
             </thead>
@@ -219,7 +219,7 @@ const PriceList = () => {
                   type="number"
                   name="price"
                   step="0.01"
-                  placeholder='Price of one Quantity'
+                  placeholder='Price of Qty.'
                   value={formData.price}
                   onChange={handleChange}
                   required
