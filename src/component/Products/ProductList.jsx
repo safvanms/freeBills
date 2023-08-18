@@ -132,8 +132,8 @@ const ProductList = () => {
             <thead className="table__heads">
               <tr>
                 <th>Sl no.</th>
-                <th>Item</th>
-                <th>Quantity/unit</th>
+                <th>Description</th>
+                <th>Qty/unit</th>
               </tr>
             </thead>
             <tbody className="table__body">
