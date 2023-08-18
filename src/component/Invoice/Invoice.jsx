@@ -51,20 +51,12 @@ export default function Invoice() {
   }
 
   const formatTimestamp = (timestamp) => {
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const dateObject = new Date(timestamp);
+    const options = { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
 
-    const dayOfWeek = daysOfWeek[dateObject.getDay()];
-    const day = dateObject.getDate().toString().padStart(2, '0');
-    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
-    const year = dateObject.getFullYear();
-    const hours = dateObject.getHours().toString().padStart(2, '0');
-    const minutes = dateObject.getMinutes().toString().padStart(2, '0');
-    //const seconds = dateObject.getSeconds().toString().padStart(2, '0');
-
-    return `${dayOfWeek}, ${day}/${month}/${year}, ${hours}:${minutes}`;
+    const formattedDate = dateObject.toLocaleString('en-US', options);
+    return formattedDate.replace(',' , '') 
 }
-
 
   const clearData = () => {
     const confirmClear = window.confirm(
