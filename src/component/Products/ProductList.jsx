@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useReactToPrint } from 'react-to-print'
 import './productList.css'
 import { BsDownload } from 'react-icons/bs'
-import { MdAdd, MdClear } from 'react-icons/md'
+import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
 import LOGO from '../../assets/logo.jpeg'
 
 const ProductList = () => {
@@ -97,7 +97,7 @@ const ProductList = () => {
   }, [data])
 
   return (
-    <div className="home__container" >
+    <div className="home__container">
       <div className="buttons">
         <div className="add__button" onClick={() => setOpen(true)}>
           <MdAdd size={25} />
@@ -114,7 +114,7 @@ const ProductList = () => {
         )}
       </div>
 
-      <div className="product_list__container" >
+      <div className="product_list__container">
         <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
           <div className="heading">
             <img src={LOGO} alt="logo" className="page__logo" />
@@ -127,7 +127,6 @@ const ProductList = () => {
             </p>
             <div className="line"></div>
           </div>
-
 
           <table className="table__container__products">
             <thead className="table__heads">
@@ -149,13 +148,16 @@ const ProductList = () => {
               ))}
             </tbody>
           </table>
-</div>
         </div>
+      </div>
 
       {open && (
         <div className="dialog-container">
           <div className="dialog">
-            <h3>Enter Item Details</h3>
+            <div className="dialog_header">
+            <h2>Enter Accessories</h2>
+            <div onClick={onClose}><MdOutlineClose style={{marginTop:"8px"}} size={25} color='lightcoral'/></div>
+            </div>
             <form onSubmit={handleSubmit}>
               <div>
                 <label>Item:</label>
@@ -198,10 +200,7 @@ const ProductList = () => {
               </div>
 
               <div className="dialogue__btn">
-                <button type="submit">Submit</button>
-                <button type="button" onClick={onClose}>
-                  Cancel
-                </button>
+                <button type="submit">Add</button>
               </div>
             </form>
           </div>

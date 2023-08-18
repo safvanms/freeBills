@@ -15,7 +15,7 @@ function App() {
         <Route path='/bill-with-price' element={<PriceList/>} />
         <Route path='/products' element={<ProductList/>} />
         <Route path='/invoice' element={<Invoice/>} />
-        <Route path='*' element={<Home/>} />
+        <Route path='/*' element={<Home/>} />
       </Routes>
     </BrowserRouter>
   );

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import '../PriceList/priceList.css'
 import LOGO from '../../assets/logo.jpeg'
 import SIGN from '../../assets/sign.png'
-import { MdAdd, MdClear } from 'react-icons/md'
+import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
 import { BsDownload } from 'react-icons/bs'
 import { useReactToPrint } from 'react-to-print'
 
@@ -147,7 +147,10 @@ export default function Invoice() {
       {open && (
         <div className="dialog-container">
           <div className="dialog">
-            <h3>Enter Invoice Details</h3>
+          <div className="dialog_header">
+            <h2>Enter Invoice Details</h2>
+            <div onClick={onClose}><MdOutlineClose style={{marginTop:"8px"}} size={25} color='lightcoral'/></div>
+            </div>
             <form onSubmit={handleSubmit}>
               <div>
                 <label>Mr / Ms:</label>
@@ -203,10 +206,7 @@ export default function Invoice() {
                 />
               </div>
               <div className="dialogue__btn">
-                <button type="submit">Submit</button>
-                <button type="button" onClick={onClose}>
-                  Cancel
-                </button>
+                <button type="submit">Add</button>
               </div>
             </form>
           </div>
