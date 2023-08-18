@@ -51,7 +51,7 @@ export default function Invoice() {
   }
 
   const formatTimestamp = (timestamp) => {
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const dateObject = new Date(timestamp);
 
     const dayOfWeek = daysOfWeek[dateObject.getDay()];
@@ -60,10 +60,9 @@ export default function Invoice() {
     const year = dateObject.getFullYear();
     const hours = dateObject.getHours().toString().padStart(2, '0');
     const minutes = dateObject.getMinutes().toString().padStart(2, '0');
-    const seconds = dateObject.getSeconds().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+    //const seconds = dateObject.getSeconds().toString().padStart(2, '0');
 
-    return `${dayOfWeek}, ${day}/${month}/${year}, ${hours}:${minutes}:${seconds} ${ampm}`;
+    return `${dayOfWeek}, ${day}/${month}/${year}, ${hours}:${minutes}`;
 }
 
 
