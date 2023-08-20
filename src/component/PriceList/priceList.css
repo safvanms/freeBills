@@ -85,7 +85,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-inline: 5px;
+  padding-inline: 20px;
 }
 
 
@@ -226,9 +226,8 @@
 .invoice__container {
   width: 100%;
   border: 1px solid #aaaa;
-  margin-top: 20px;
   height: auto;
-  min-height: 70vh;
+  min-height: 65vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -237,6 +236,7 @@
 .invoice__table {
   width: 100%;
   border-collapse: collapse;
+  
 }
 
 .invoice__heading {
