@@ -8,12 +8,14 @@ import { useReactToPrint } from 'react-to-print'
 
 export default function Invoice() {
   const [data, setData] = useState([])
+  const [time, setTime] = useState(null)
   const [open, setOpen] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     gender: '',
     particulars: '',
     price: '',
+    advancePrice: '',
   })
 
   const componentPDF = useRef()
@@ -32,6 +34,7 @@ export default function Invoice() {
     e.preventDefault()
     setData([...data, formData])
     setFormData({ particulars: '', price: '', name: '' })
+    setTime(formData.time)
     onClose(true)
   }
 
@@ -52,7 +55,19 @@ export default function Invoice() {
 
   const formatTimestamp = (timestamp) => {
     const dateObject = new Date(timestamp)
-    return dateObject.toLocaleString()
+    const options = {
+      weekday: 'long',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true,
+    }
+
+    const formattedDate = dateObject.toLocaleString('en-US', options)
+    return formattedDate.replace(',', '')
   }
 
   const clearData = () => {
@@ -65,17 +80,23 @@ export default function Invoice() {
   }
 
   const calculateTotal = () => {
-    return data.reduce((total, elem) => total + parseFloat(elem.price), 0)
+    let advance = data.reduce(
+      (sum, item) => sum + parseFloat(item.advancePrice || 0),
+      0,
+    )
+    let totalPrice = data.reduce(
+      (sum, item) => sum + parseFloat(item.price || 0),
+      0,
+    )
+    return totalPrice - advance
   }
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <div className="buttons">
-        {data.length === 0 && (
-          <div className="add__button" onClick={() => setOpen(true)}>
-            <MdAdd size={25} />
-          </div>
-        )}
+        <div className="add__button" onClick={() => setOpen(true)}>
+          <MdAdd size={25} />
+        </div>
         {data.length > 0 && (
           <div className="download__button" onClick={downloadPdf}>
             <BsDownload size={22} />
@@ -101,28 +122,42 @@ export default function Invoice() {
             </p>
             <div className="line"></div>
           </div>
-          {data &&
-            data.map((item) => (
-              <h5 style={{ margin: 0 }}>
-                <span style={{ color: 'gray' }}>Customer : </span> {item.gender}{' '}
-                {item.name}
-              </h5>
-            ))}
+
+          <div className="name_time_place">
+            <div>
+              {data &&
+                data.map(
+                  (item) =>
+                    item.name && (
+                      <h5 style={{ margin: 0 }}>
+                        <span style={{ color: 'gray' }}>To, </span>{' '}
+                        {item.gender} {item.name}
+                      </h5>
+                    ),
+                )}
+            </div>
+            {data.length !== 0 && (
+              <div>
+                <>On {formatTimestamp(time)}</>
+              </div>
+            )}
+          </div>
+
           <div className="invoice__container">
             <table className="invoice__table">
               <thead className="invoice__heading">
                 <tr>
-                  <th>Date&Time</th>
+                  <th>Sl.no</th>
                   <th>Particulars</th>
                   <th>Amount</th>
                 </tr>
               </thead>
               <tbody>
-                {data.map((item) => (
+                {data.map((item, i) => (
                   <tr key={item.time} className="invoice__data">
-                    <td>{formatTimestamp(item.time)}</td>
-                    <td>{item.particulars}</td>
-                    <td>Rs. {item.price} /-</td>
+                    <td>{i + 1}</td>
+                    <td style={item.advancePrice ? { color: "grey" } : null}>{item.particulars}</td>
+                    <td>Rs. {item.price || item.advancePrice} /-</td>
                   </tr>
                 ))}
               </tbody>
@@ -133,13 +168,15 @@ export default function Invoice() {
             </div>
           </div>
 
-         { data.length !==0 && (<div className="invoice__signature">
-            <p>Invoice issued by Empire Electricals.</p>
-            <img src={SIGN} alt="sign" />
-          </div>)}
+          {data.length !== 0 && (
+            <div className="invoice__signature">
+              <p>Invoice issued by Empire Electricals.</p>
+              <img src={SIGN} alt="sign" />
+            </div>
+          )}
 
           <p style={{ margin: '0px', fontSize: '10px' }}>
-           <span>Thank you | Empire Electricals & Group of Technologies</span>
+            <span>Thank you | Empire Electricals & Group of Technologies</span>
           </p>
         </div>
       </div>
@@ -147,46 +184,93 @@ export default function Invoice() {
       {open && (
         <div className="dialog-container">
           <div className="dialog">
-          <div className="dialog_header">
-            <h2>Enter Invoice Details</h2>
-            <div onClick={onClose}><MdOutlineClose style={{marginTop:"8px"}} size={25} color='lightcoral'/></div>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label>Mr / Ms:</label>
-                <select
-                  value={formData.gender}
-                  name="gender"
-                  onChange={handleChange}
-                  style={{ width: '50%', height: '30px' }}
-                  required
-                >
-                  <option value="">Select</option>
-                  <option value="Mr.">Mr.</option>
-                  <option value="Ms.">Ms.</option>
-                  <option value="Miss.">Miss.</option>
-                  <option value="Mrs.">Mrs.</option>
-                </select>
-              </div>
-
-              <div>
-                <label>Customer Name:</label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder=" Enter customer's Name "
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
+            <div className="dialog_header">
+              <h2>Enter Invoice Details</h2>
+              <div onClick={onClose}>
+                <MdOutlineClose
+                  style={{ marginTop: '8px' }}
+                  size={25}
+                  color="lightcoral"
                 />
               </div>
+            </div>
+            <form onSubmit={handleSubmit}>
+              {data.length !== 0 ? (
+                data.map((name) => {
+                  return (
+                    !name && (
+                      <>
+                        <div>
+                          <label>Mr / Ms:</label>
+                          <select
+                            value={formData.gender}
+                            name="gender"
+                            onChange={handleChange}
+                            style={{ width: '50%', height: '30px' }}
+                            required
+                          >
+                            <option value="">Select</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Miss.">Miss.</option>
+                            <option value="Mrs.">Mrs.</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label>Customer Name:</label>
+                          <input
+                            type="text"
+                            name="name"
+                            placeholder=" Enter customer's Name "
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                          />
+                        </div>
+                      </>
+                    )
+                  )
+                })
+              ) : (
+                <>
+                  <div>
+                    <label>Mr / Ms:</label>
+                    <select
+                      value={formData.gender}
+                      name="gender"
+                      onChange={handleChange}
+                      style={{ width: '50%', height: '30px' }}
+                      required
+                    >
+                      <option value="">Select</option>
+                      <option value="Mr.">Mr.</option>
+                      <option value="Ms.">Ms.</option>
+                      <option value="Miss.">Miss.</option>
+                      <option value="Mrs.">Mrs.</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label>Customer Name:</label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder=" Enter customer's Name "
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </>
+              )}
 
               <div>
                 <label>Particulars:</label>
                 <input
                   type="text"
                   name="particulars"
-                  placeholder=" Cash received "
+                  placeholder=" Cash received / advance received "
                   value={formData.particulars}
                   onChange={handleChange}
                   required
@@ -196,15 +280,32 @@ export default function Invoice() {
               <div>
                 <label>Price:</label>
                 <input
+                  className={formData.advancePrice && 'disabled_input'}
                   type="number"
                   name="price"
                   step="0.01"
                   placeholder=" Enter Amount "
                   value={formData.price}
                   onChange={handleChange}
-                  required
+                  disabled={formData.advancePrice}
                 />
               </div>
+
+              <div>
+                <label> Enter Advance:</label>
+                <input
+                  className={formData.price && 'disabled_input'}
+                  type="number"
+                  name="advancePrice"
+                  step="0.01"
+                  placeholder=" Enter Advance amount "
+                  value={formData.advancePrice}
+                  onChange={handleChange}
+                  disabled={formData.price}
+                  style={{ borderColor: 'red' }}
+                />
+              </div>
+
               <div className="dialogue__btn">
                 <button type="submit">Add</button>
               </div>

@@ -29,23 +29,25 @@
 }
 
 .add__button {
-  background-color: #28a745;
+  /* background-color: #28a745; */
+  background-color: rgb(255, 183, 0);
   color: #fff;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .add__button:hover {
-  background-color: rgb(38, 133, 68);
+  /* background-color: rgb(38, 133, 68); */
+  background-color: rgb(255, 170, 0)
 }
 
 .download__button {
-  background-color: rgb(79, 84, 218);
+  background-color: #28a745;
   color: #fff;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .download__button:hover {
-  background-color: rgb(51, 55, 176);
+  background-color: #238f3c;
 }
 
 .clear__button {
@@ -76,6 +78,14 @@
 
 .contact{
   margin-bottom: 10px;
+}
+
+.name_time_place{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-inline: 5px;
 }
 
 
@@ -132,7 +142,7 @@
 }
 
 .table__body td {
-  padding: 5px;
+  padding: 3px 5px 3px 8px;
 }
 
 /* dialogue section  */
@@ -181,6 +191,10 @@
   border-radius: 4px;
 }
 
+.disabled_input{
+  background-color: lightcoral;
+}
+
 .dialogue__btn {
   display: flex;
   justify-content: space-around;
@@ -213,7 +227,8 @@
   width: 100%;
   border: 1px solid #aaaa;
   margin-top: 20px;
-  height: 65vh;
+  height: auto;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -237,15 +252,20 @@
 }
 
 .invoice__heading th:nth-child(1) {
-  width: 25%;
+  width: 10%;
 }
 
 .invoice__heading th:nth-child(2) {
-  width: 50%;
+  width: 65%;
 }
 
 .invoice__heading th:nth-child(3) {
   width: 25%;
+}
+
+.invoice__data td:nth-child(3){
+  text-align: right;
+  padding-right: 10px;
 }
 
 .invoice__data td {
