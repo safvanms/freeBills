@@ -256,11 +256,11 @@
 }
 
 .invoice__heading th:nth-child(2) {
-  width: 60%;
+  width: 65%;
 }
 
 .invoice__heading th:nth-child(3) {
-  width: 30%;
+  width: 25%;
 }
 
 .invoice__data td:nth-child(3){
