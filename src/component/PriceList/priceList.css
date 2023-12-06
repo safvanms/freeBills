@@ -260,6 +260,7 @@
 
 .invoice__heading th:nth-child(3) {
   width: 25%;
+  
 }
 
 .invoice__data td:nth-child(3){

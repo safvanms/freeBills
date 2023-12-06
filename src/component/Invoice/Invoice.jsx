@@ -174,7 +174,7 @@ export default function Invoice() {
               </tbody>
             </table>
             <div className="invoice__footer">
-              <div className="invoice__total__name">Total</div>
+              <div className="invoice__total__name">Grand Total :</div>
               <div className="invoice__total">Rs.{calculateTotal()}/-</div>
             </div>
           </div>
