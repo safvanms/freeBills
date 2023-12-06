@@ -1,6 +1,6 @@
-.home{
+.home {
   height: 100vh;
-  background-image:url('https://www.pngitem.com/pimgs/m/178-1783514_transparent-circuit-vector-png-circuit-png-png-download.png');
+  background-image: url('https://www.pngitem.com/pimgs/m/178-1783514_transparent-circuit-vector-png-circuit-png-png-download.png');
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -10,44 +10,114 @@
   align-items: center;
 }
 
-.home__logo{
+.home__logo {
   width: 500px;
   padding-bottom: 25px;
 }
 
-.home__buttons{
+.home__buttons {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.products__page,.bill__page,.invoice__page{
-height: 35px;
-width: 100px;
-border-radius: 7px;
-color: #fff;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 13px;
-cursor: pointer;
+.products__page,
+.bill__page,
+.invoice__page {
+  border-radius: 20px;
+  min-width: 100px;
+  padding: 8px 15px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
 }
 
-.products__page{
+.products__page {
   background-color: rgb(219, 0, 0);
 }
 
-.bill__page{
+.bill__page {
   background-color: black;
 }
 
-.invoice__page{
+.invoice__page {
   background-color: rgb(65, 65, 69);
 }
 
-@media (max-width:768px){
-  .home__logo{
+/* modal */
+
+.modal {
+  max-width: 550px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.modal h1{
+font-weight: 700;
+}
+
+.modal form {
+width: 60%;
+margin-top: 10px;
+}
+
+.modal form div{
+  display: flex;
+  flex-direction: column;
+}
+
+.modal label {
+  margin-bottom: 4px;
+}
+
+.modal input {
+  padding: 7px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid grey;
+  outline: none;
+}
+
+.modal button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.modal button:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: red;
+  margin-top: 15px;
+  text-align: center;
+}
+
+@media (max-width:768px) {
+  .home__logo {
     width: 90%;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
   }
+  .modal form {
+    width: 90%;
+    }    
 }

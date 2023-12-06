@@ -5,6 +5,7 @@ import SIGN from '../../assets/sign.png'
 import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
 import { BsDownload } from 'react-icons/bs'
 import { useReactToPrint } from 'react-to-print'
+import { PASSWORD } from '../../credentials'
 
 export default function Invoice() {
   const [data, setData] = useState([])
@@ -25,6 +26,16 @@ export default function Invoice() {
     print: false,
     fileName: 'invoice.pdf',
   })
+
+  const getDownload = () => {
+    const password = prompt('Enter your password ');
+    if ( password === PASSWORD) {
+      downloadPdf()
+    } else {
+      alert('Wrong Password , try again');
+    }
+  };
+
 
   const onClose = () => {
     setOpen(false)
@@ -98,7 +109,7 @@ export default function Invoice() {
           <MdAdd size={25} />
         </div>
         {data.length > 0 && (
-          <div className="download__button" onClick={downloadPdf}>
+          <div className="download__button" onClick={getDownload}>
             <BsDownload size={22} />
           </div>
         )}

@@ -4,6 +4,7 @@ import './priceList.css'
 import { BsDownload } from 'react-icons/bs'
 import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
 import LOGO from '../../assets/logo.jpeg'
+import { PASSWORD } from '../../credentials'
 
 const PriceList = () => {
   const [open, setOpen] = useState(false)
@@ -81,6 +82,15 @@ const PriceList = () => {
     fileName: 'empire.pdf',
   })
 
+  const getDownload = () => {
+    const password = prompt('Enter password ');
+    if ( password === PASSWORD) {
+      generatePDF()
+    } else {
+      alert('Wrong Password , try again');
+    }
+  };
+
   const calculateTotal = () => {
     return data.reduce((total, elem) => total + parseFloat(elem.price*elem.quantity), 0)
   }
@@ -113,7 +123,7 @@ const PriceList = () => {
           <MdAdd size={25} />
         </div>
         {data.length > 0 && (
-          <div className="download__button" onClick={generatePDF}>
+          <div className="download__button" onClick={getDownload}>
             <BsDownload size={22} />
           </div>
         )}

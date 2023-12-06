@@ -4,6 +4,7 @@ import './productList.css'
 import { BsDownload } from 'react-icons/bs'
 import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
 import LOGO from '../../assets/logo.jpeg'
+import { PASSWORD } from '../../credentials'
 
 const ProductList = () => {
   const [open, setOpen] = useState(false)
@@ -76,6 +77,15 @@ const ProductList = () => {
     content: () => componentPDF.current,
   })
 
+  const getDownload = () => {
+    const password = prompt('Enter your password ');
+    if ( password === PASSWORD) {
+      generatePDF()
+    } else {
+      alert('Wrong Password , try again');
+    }
+  };
+
   const onClose = () => {
     setOpen(false)
     setFormData({ item: '', quantity: '', unit: '', price: '' })
@@ -103,7 +113,7 @@ const ProductList = () => {
           <MdAdd size={25} />
         </div>
         {data.length > 0 && (
-          <div className="download__button" onClick={generatePDF}>
+          <div className="download__button" onClick={getDownload}>
             <BsDownload size={22} />
           </div>
         )}
