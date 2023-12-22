@@ -50,7 +50,7 @@
 
 .bill__page:hover {
   background-color: rgb(29, 27, 27);
-  color: #cccc ;
+  color: #cccc !important;
 }
 
 .invoice__page {
