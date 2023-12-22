@@ -24,27 +24,40 @@
 .products__page,
 .bill__page,
 .invoice__page {
-  border-radius: 20px;
-  min-width: 100px;
-  padding: 8px 15px;
+  border-radius: 15px;
+  width: 150px;
+  padding: 10px 15px;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 13px;
   cursor: pointer;
+  box-shadow: 1px 1px 5px 0.09px rgb(0, 0, 0);
 }
 
 .products__page {
   background-color: rgb(219, 0, 0);
 }
 
+.products__page:hover {
+  background-color: rgb(177, 8, 8);
+}
+
 .bill__page {
   background-color: black;
 }
 
+.bill__page:hover {
+  background-color: rgb(29, 27, 27);
+}
+
 .invoice__page {
   background-color: rgb(65, 65, 69);
+}
+
+.invoice__page:hover {
+  background-color: rgb(105, 100, 100);
 }
 
 /* modal */
@@ -66,16 +79,16 @@
   border-radius: 10px;
 }
 
-.modal h1{
-font-weight: 700;
+.modal h1 {
+  font-weight: 700;
 }
 
 .modal form {
-width: 60%;
-margin-top: 10px;
+  width: 60%;
+  margin-top: 10px;
 }
 
-.modal form div{
+.modal form div {
   display: flex;
   flex-direction: column;
 }
@@ -112,12 +125,53 @@ margin-top: 10px;
   text-align: center;
 }
 
+
 @media (max-width:768px) {
   .home__logo {
-    width: 90%;
+    width: 95%;
     padding-bottom: 20px;
   }
+
   .modal form {
     width: 90%;
-    }    
+  }
+
+  .home__buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .products__page,
+  .bill__page,
+  .invoice__page {
+    position: relative;
+    border-radius: 15px;
+    width: 97vw;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: rgba(172, 172, 172, 0.388);
+  box-shadow: 1px 1px 1px 0.1px rgb(149, 147, 147);
+  }
+
+  .background-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+  }
+
+  .button-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    padding: 5px;
+    font-weight: 800;
+    color: black;
+  }
+
 }

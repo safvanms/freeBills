@@ -16,7 +16,7 @@
   position: fixed;
   right: 5px;
   bottom: 20px;
-  z-index:0;
+  z-index: 0;
 }
 
 .buttons div {
@@ -60,27 +60,7 @@
   background-color: rgb(170, 38, 34);
 }
 
-.heading {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.contact,.license {
-  margin: 0;
-}
-
-.license{
-  font-weight: 600;
-}
-
-.contact{
-  margin-bottom: 10px;
-}
-
-.name_time_place{
+.name_time_place {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -164,12 +144,12 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index:9999;
+  z-index: 9999;
   width: 100%;
   max-width: 350px !important;
 }
 
-.dialog_header{
+.dialog_header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -191,7 +171,7 @@
   border-radius: 4px;
 }
 
-.disabled_input{
+.disabled_input {
   background-color: lightcoral;
 }
 
@@ -202,7 +182,7 @@
 }
 
 .dialog button {
-  padding:10px;
+  padding: 10px;
   width: 150px;
   border: none;
   border-radius: 25px;
@@ -260,10 +240,10 @@
 
 .invoice__heading th:nth-child(3) {
   width: 25%;
-  
+
 }
 
-.invoice__data td:nth-child(3){
+.invoice__data td:nth-child(3) {
   text-align: right;
   padding-right: 10px;
 }
@@ -276,11 +256,11 @@
   font-size: 14px;
 }
 
-.invoice__data td:nth-child(1){
-color: grey;
+.invoice__data td:nth-child(1) {
+  color: grey;
 }
 
-.invoice__footer{
+.invoice__footer {
   height: 40px;
   border-top: 1px solid #dddd;
   display: flex;
@@ -290,28 +270,28 @@ color: grey;
 }
 
 
-.invoice__total__name{
+.invoice__total__name {
   width: 75%;
   border-right: 1px solid #dddd;
 }
 
-.invoice__signature{
+.invoice__signature {
   width: 95%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.invoice__signature p{
-margin: 0;
-font-size: 12px;
+.invoice__signature p {
+  margin: 0;
+  font-size: 12px;
 }
 
-.invoice__signature img{
+.invoice__signature img {
   width: 150px;
   position: relative;
   bottom: 20px;
-  z-index:-1;
+  z-index: -1;
 }
 
 
@@ -328,12 +308,9 @@ font-size: 12px;
   .sheet {
     padding: 20px 0px 0px 0px;
   }
+
   .dialog {
     width: 90%;
-  }
-
-  .heading p {
-    font-size: 10px;
   }
 
   .invoice__container {

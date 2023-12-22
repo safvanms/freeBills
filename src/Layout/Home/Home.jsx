@@ -63,24 +63,24 @@ export default function Home() {
       <img src={LOGO} alt="logo" className="home__logo" />
       <div className="home__buttons">
         <div className="products__page" onClick={() => getBillPage('products')}>
-          {' '}
-          Accessories{' '}
+          <div className="background-layer"></div>
+          <div className="button-content">Accessories</div>
         </div>
         <div
           className="bill__page"
           onClick={() => getBillPage('bill-with-price')}
         >
-          {' '}
-          Generate Bill{' '}
+          <div className="background-layer"></div>
+          <div className="button-content">Generate Bill</div>
         </div>
         <div className="invoice__page" onClick={() => getBillPage('invoice')}>
-          {' '}
-          Invoice{' '}
+          <div className="background-layer"></div>
+          <div className="button-content">Invoice</div>
         </div>
       </div>
       {openAuth && (
         <div className="modal">
-          <h1>SIGN UP </h1>
+          <h1>LOGIN</h1>
           <form onSubmit={handleSubmit}>
             <div>
               <label>Username:</label>

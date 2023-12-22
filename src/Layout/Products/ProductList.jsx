@@ -3,8 +3,8 @@ import { useReactToPrint } from 'react-to-print'
 import './productList.css'
 import { BsDownload } from 'react-icons/bs'
 import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
-import LOGO from '../../assets/logo.jpeg'
 import { PASSWORD } from '../../credentials'
+import Header from '../../component/Header/Header'
 
 const ProductList = () => {
   const [open, setOpen] = useState(false)
@@ -24,9 +24,10 @@ const ProductList = () => {
       setData(JSON.parse(storedData))
     }
   }, [])
+  
 
   const handleChange = (e) => {
-    if (e.target.name === 'unit') {
+     if (e.target.name === 'unit') {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
@@ -35,7 +36,7 @@ const ProductList = () => {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
-        id: Date.now()
+        id: Date.now(),
       })
     }
   }
@@ -78,13 +79,13 @@ const ProductList = () => {
   })
 
   const getDownload = () => {
-    const password = prompt('Enter your password ');
-    if ( password === PASSWORD) {
+    const password = prompt('Enter your password ')
+    if (password === PASSWORD) {
       generatePDF()
     } else {
-      alert('Wrong Password , try again');
+      alert('Wrong Password , try again')
     }
-  };
+  }
 
   const onClose = () => {
     setOpen(false)
@@ -126,17 +127,7 @@ const ProductList = () => {
 
       <div className="product_list__container">
         <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
-          <div className="heading">
-            <img src={LOGO} alt="logo" className="page__logo" />
-            <p className="license">
-              {' '}
-              License No : B1-143/19.20 &nbsp; MSME Reg No : KL09E0004583
-            </p>
-            <p className="contact">
-              Contact : +91 81 56 928 557 | +91 79 07 132 007
-            </p>
-            <div className="line"></div>
-          </div>
+          <Header />
           <table className="table__container__products">
             <thead className="table__heads">
               <tr>
@@ -164,20 +155,26 @@ const ProductList = () => {
         <div className="dialog-container">
           <div className="dialog">
             <div className="dialog_header">
-            <h2>Enter Accessories</h2>
-            <div onClick={onClose}><MdOutlineClose style={{marginTop:"8px"}} size={25} color='lightcoral'/></div>
+              <h2>Enter Accessories</h2>
+              <div onClick={onClose}>
+                <MdOutlineClose
+                  style={{ marginTop: '8px' }}
+                  size={25}
+                  color="lightcoral"
+                />
+              </div>
             </div>
             <form onSubmit={handleSubmit}>
               <div>
                 <label>Item:</label>
-                <input
-                  type="text"
-                  name="item"
-                  placeholder="Item Name"
-                  value={formData.item}
-                  onChange={handleChange}
-                  required
-                />
+                  <input
+                    type="text"
+                    name="item"
+                    placeholder="Enter item"
+                    value={formData.item}
+                    onChange={handleChange}
+                    required
+                  />
               </div>
               <div>
                 <label>Quantity:</label>

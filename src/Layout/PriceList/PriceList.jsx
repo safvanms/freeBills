@@ -3,8 +3,8 @@ import { useReactToPrint } from 'react-to-print'
 import './priceList.css'
 import { BsDownload } from 'react-icons/bs'
 import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
-import LOGO from '../../assets/logo.jpeg'
 import { PASSWORD } from '../../credentials'
+import Header from '../../component/Header/Header'
 
 const PriceList = () => {
   const [open, setOpen] = useState(false)
@@ -136,17 +136,9 @@ const PriceList = () => {
 
       <div className="sheet__container">
         <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
-        <div className="heading">
-            <img src={LOGO} alt="logo" className="page__logo" />
-            <p className="license">
-              {' '}
-              License No : B1-143/19.20 &nbsp; MSME Reg No : KL09E0004583
-            </p>
-            <p className="contact">
-              Contact : +91 81 56 928 557 | +91 79 07 132 007
-            </p>
-            <div className="line"></div>
-          </div>
+        
+        
+      <Header/>
 
           <table className="table__container">
             <thead className="table__heads">
