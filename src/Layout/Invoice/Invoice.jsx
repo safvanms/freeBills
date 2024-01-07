@@ -1,109 +1,103 @@
-import React, { useRef, useState } from 'react'
-import '../PriceList/priceList.css'
-import SIGN from '../../assets/sign.png'
-import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
-import { BsDownload } from 'react-icons/bs'
-import { useReactToPrint } from 'react-to-print'
-import { PASSWORD } from '../../credentials'
-import Header from '../../component/Header/Header'
+import React, { useRef, useState } from "react";
+import "../PriceList/priceList.css";
+import SIGN from "../../assets/sign.png";
+import { MdAdd, MdClear, MdOutlineClose } from "react-icons/md";
+import { BsDownload } from "react-icons/bs";
+import { useReactToPrint } from "react-to-print";
+import Header from "../../component/Header/Header";
 
 export default function Invoice() {
-  const [data, setData] = useState([])
-  const [time, setTime] = useState(null)
-  const [open, setOpen] = useState(false)
+  const [data, setData] = useState([]);
+  const [time, setTime] = useState(null);
+  const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    gender: '',
-    particulars: '',
-    price: '',
-    advancePrice: '',
-  })
+    name: "",
+    gender: "",
+    particulars: "",
+    price: "",
+    advancePrice: "",
+  });
 
-  const componentPDF = useRef()
+  const componentPDF = useRef();
+  const currentTime = Date.now();
 
   const downloadPdf = useReactToPrint({
     content: () => componentPDF.current,
     print: false,
-    fileName: 'invoice.pdf',
-  })
+    filename: `invoice${currentTime}.pdf`,
+  });
 
   const getDownload = () => {
-    const password = prompt('Enter your password ');
-    if ( password === PASSWORD) {
-      downloadPdf()
-    } else {
-      alert('Wrong Password , try again');
-    }
+    downloadPdf();
   };
 
-
   const onClose = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setData([...data, formData])
-    setFormData({ particulars: '', price: '', name: '' })
-    setTime(formData.time)
-    onClose(true)
-  }
+    e.preventDefault();
+    setData([...data, formData]);
+    setFormData({ particulars: "", price: "", name: "" });
+    setTime(formData.time);
+    onClose(true);
+  };
 
   const handleChange = (e) => {
-    if (e.target.name === 'gender') {
+    if (e.target.name === "gender") {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
-      })
+      });
     } else {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
         time: Date.now(),
-      })
+      });
     }
-  }
+  };
 
   const formatTimestamp = (timestamp) => {
-    const dateObject = new Date(timestamp)
+    const dateObject = new Date(timestamp);
     const options = {
-      weekday: 'long',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
+      weekday: "long",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
       hour12: true,
-    }
+    };
 
-    const formattedDate = dateObject.toLocaleString('en-US', options)
-    return formattedDate.replace(',', '')
-  }
+    const formattedDate = dateObject.toLocaleString("en-US", options);
+    return formattedDate.replace(",", "");
+  };
 
   const clearData = () => {
     const confirmClear = window.confirm(
-      'Are you sure you want to clear the data?',
-    )
+      "Are you sure you want to clear the data?"
+    );
     if (confirmClear) {
-      setData([])
+      setData([]);
     }
-  }
+  };
 
   const calculateTotal = () => {
     let advance = data.reduce(
       (sum, item) => sum + parseFloat(item.advancePrice || 0),
-      0,
-    )
+      0
+    );
     let totalPrice = data.reduce(
       (sum, item) => sum + parseFloat(item.price || 0),
-      0,
-    )
-    return totalPrice - advance
-  }
+      0
+    );
+    return totalPrice - advance;
+  };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div style={{ display: "flex", justifyContent: "center" }}>
       <div className="buttons">
         <div className="add__button" onClick={() => setOpen(true)}>
           <MdAdd size={25} />
@@ -121,9 +115,8 @@ export default function Invoice() {
       </div>
 
       <div className="sheet__container">
-        <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
-         
-         <Header/>
+        <div className="sheet" ref={componentPDF} style={{ width: "100%" }}>
+          <Header />
 
           <div className="name_time_place">
             <div>
@@ -132,10 +125,10 @@ export default function Invoice() {
                   (item) =>
                     item.name && (
                       <h5 style={{ margin: 0 }}>
-                        <span style={{ color: 'gray' }}>To, </span>{' '}
+                        <span style={{ color: "gray" }}>To, </span>{" "}
                         {item.gender} {item.name}
                       </h5>
-                    ),
+                    )
                 )}
             </div>
             {data.length !== 0 && (
@@ -158,7 +151,9 @@ export default function Invoice() {
                 {data.map((item, i) => (
                   <tr key={item.time} className="invoice__data">
                     <td>{i + 1}</td>
-                    <td style={item.advancePrice ? { color: "grey" } : null}>{item.particulars}</td>
+                    <td style={item.advancePrice ? { color: "grey" } : null}>
+                      {item.particulars}
+                    </td>
                     <td>Rs. {item.price || item.advancePrice} /-</td>
                   </tr>
                 ))}
@@ -177,7 +172,7 @@ export default function Invoice() {
             </div>
           )}
 
-          <p style={{ margin: '0px', fontSize: '10px' }}>
+          <p style={{ margin: "0px", fontSize: "10px" }}>
             <span>Thank you | Empire Electricals & Group of Technologies</span>
           </p>
         </div>
@@ -190,7 +185,7 @@ export default function Invoice() {
               <h2>Enter Invoice Details</h2>
               <div onClick={onClose}>
                 <MdOutlineClose
-                  style={{ marginTop: '8px' }}
+                  style={{ marginTop: "8px" }}
                   size={25}
                   color="lightcoral"
                 />
@@ -208,7 +203,7 @@ export default function Invoice() {
                             value={formData.gender}
                             name="gender"
                             onChange={handleChange}
-                            style={{ width: '50%', height: '30px' }}
+                            style={{ width: "50%", height: "30px" }}
                             required
                           >
                             <option value="">Select</option>
@@ -232,7 +227,7 @@ export default function Invoice() {
                         </div>
                       </>
                     )
-                  )
+                  );
                 })
               ) : (
                 <>
@@ -242,7 +237,7 @@ export default function Invoice() {
                       value={formData.gender}
                       name="gender"
                       onChange={handleChange}
-                      style={{ width: '50%', height: '30px' }}
+                      style={{ width: "50%", height: "30px" }}
                       required
                     >
                       <option value="">Select</option>
@@ -282,7 +277,7 @@ export default function Invoice() {
               <div>
                 <label>Price:</label>
                 <input
-                  className={formData.advancePrice && 'disabled_input'}
+                  className={formData.advancePrice && "disabled_input"}
                   type="number"
                   name="price"
                   step="0.01"
@@ -296,7 +291,7 @@ export default function Invoice() {
               <div>
                 <label> Enter Advance:</label>
                 <input
-                  className={formData.price && 'disabled_input'}
+                  className={formData.price && "disabled_input"}
                   type="number"
                   name="advancePrice"
                   step="0.01"
@@ -304,7 +299,7 @@ export default function Invoice() {
                   value={formData.advancePrice}
                   onChange={handleChange}
                   disabled={formData.price}
-                  style={{ borderColor: 'red' }}
+                  style={{ borderColor: "red" }}
                 />
               </div>
 
@@ -316,5 +311,5 @@ export default function Invoice() {
         </div>
       )}
     </div>
-  )
+  );
 }

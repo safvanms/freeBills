@@ -1,60 +1,59 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useReactToPrint } from 'react-to-print'
-import './priceList.css'
-import { BsDownload } from 'react-icons/bs'
-import { MdAdd, MdClear, MdOutlineClose } from 'react-icons/md'
-import { PASSWORD } from '../../credentials'
-import Header from '../../component/Header/Header'
+import React, { useEffect, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
+import "./priceList.css";
+import { BsDownload } from "react-icons/bs";
+import { MdAdd, MdClear, MdOutlineClose } from "react-icons/md";
+import Header from "../../component/Header/Header";
 
 const PriceList = () => {
-  const [open, setOpen] = useState(false)
-  const [data, setData] = useState([])
-  const [editId, setEditId] = useState(null)
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [editId, setEditId] = useState(null);
   const [formData, setFormData] = useState({
-    item: '',
-    quantity: '',
-    unit: '',
-    price: '',
-  })
+    item: "",
+    quantity: "",
+    unit: "",
+    price: "",
+  });
 
-  const componentPDF = useRef()
+  const componentPDF = useRef();
 
   useEffect(() => {
-    const storedData = localStorage.getItem('tableData')
+    const storedData = localStorage.getItem("tableData");
     if (storedData) {
-      setData(JSON.parse(storedData))
+      setData(JSON.parse(storedData));
     }
-  }, [])
+  }, []);
 
   const handleChange = (e) => {
-    if (e.target.name === 'unit') {
+    if (e.target.name === "unit") {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
-      })
+      });
     } else {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
         id: Date.now().toString(),
-      })
+      });
     }
-  }
+  };
 
   const addItem = () => {
-    setData([...data, formData])
-    setFormData({ item: '', quantity: '', unit: '', price: '' })
-    onClose()
-  }
+    setData([...data, formData]);
+    setFormData({ item: "", quantity: "", unit: "", price: "" });
+    onClose();
+  };
 
   const handleEdit = (ID) => {
-    setOpen(true)
+    setOpen(true);
     const rawItems = data.find((item) => {
-      return item.id === ID
-    })
-    setFormData(rawItems)
-    setEditId(ID)
-  }
+      return item.id === ID;
+    });
+    setFormData(rawItems);
+    setEditId(ID);
+  };
 
   const editItem = (editId) => {
     setData((prevData) =>
@@ -62,59 +61,58 @@ const PriceList = () => {
         item.id === editId ? { ...formData, id: editId } : item
       )
     );
-    setFormData({ item: '', quantity: '', unit: '', price: '' });
+    setFormData({ item: "", quantity: "", unit: "", price: "" });
     setEditId(null);
     onClose(true);
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (editId) {
-      editItem(editId)
+      editItem(editId);
     } else {
-      addItem()
+      addItem();
     }
-  }
+  };
+
+  const currentTime = Date.now();
 
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
     print: false,
-    fileName: 'empire.pdf',
-  })
+    fileName: `empireBill${currentTime}.pdf`
+  });
 
-  const getDownload = () => {
-    const password = prompt('Enter password ');
-    if ( password === PASSWORD) {
-      generatePDF()
-    } else {
-      alert('Wrong Password , try again');
-    }
+  const getDownload = async () => {
+    generatePDF();
   };
 
   const calculateTotal = () => {
-    return data.reduce((total, elem) => total + parseFloat(elem.price*elem.quantity), 0)
-  }
+    return data.reduce(
+      (total, elem) => total + parseFloat(elem.price * elem.quantity),
+      0
+    );
+  };
 
   const onClose = () => {
-    setOpen(false)
-    setFormData({ item: '', quantity: '', unit: '', price: '' })
-    setEditId(null)
-  }
+    setOpen(false);
+    setFormData({ item: "", quantity: "", unit: "", price: "" });
+    setEditId(null);
+  };
 
   const clearData = () => {
     const confirmClear = window.confirm(
-      'Are you sure you want to clear the data?',
-    )
+      "Are you sure you want to clear the data?"
+    );
     if (confirmClear) {
-      localStorage.removeItem('tableData')
-      setData([])
+      localStorage.removeItem("tableData");
+      setData([]);
     }
-  }
+  };
 
   useEffect(() => {
-    localStorage.setItem('tableData', JSON.stringify(data))
-  }, [data])
-
+    localStorage.setItem("tableData", JSON.stringify(data));
+  }, [data]);
 
   return (
     <div className="home__container">
@@ -135,10 +133,8 @@ const PriceList = () => {
       </div>
 
       <div className="sheet__container">
-        <div className="sheet" ref={componentPDF} style={{ width: '100%' }}>
-        
-        
-      <Header/>
+        <div className="sheet" ref={componentPDF} style={{ width: "100%" }}>
+          <Header />
 
           <table className="table__container">
             <thead className="table__heads">
@@ -157,12 +153,12 @@ const PriceList = () => {
                   <td>
                     {elem.quantity} {elem.unit}
                   </td>
-                  <td>{elem.price*elem.quantity}</td>
+                  <td>{elem.price * elem.quantity}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="total__sec" >
+          <div className="total__sec">
             <div>Grand Total </div>
             <div> Rs. {calculateTotal()} /- </div>
           </div>
@@ -172,9 +168,15 @@ const PriceList = () => {
       {open && (
         <div className="dialog-container">
           <div className="dialog">
-          <div className="dialog_header">
-            <h2>Enter Bill Items</h2>
-            <div onClick={onClose}><MdOutlineClose style={{marginTop:"8px"}} size={25} color='lightcoral'/></div>
+            <div className="dialog_header">
+              <h2>Enter Bill Items</h2>
+              <div onClick={onClose}>
+                <MdOutlineClose
+                  style={{ marginTop: "8px" }}
+                  size={25}
+                  color="lightcoral"
+                />
+              </div>
             </div>
             <form onSubmit={handleSubmit}>
               <div>
@@ -182,7 +184,7 @@ const PriceList = () => {
                 <input
                   type="text"
                   name="item"
-                  placeholder='Item Name'
+                  placeholder="Item Name"
                   value={formData.item}
                   onChange={handleChange}
                   required
@@ -193,7 +195,7 @@ const PriceList = () => {
                 <input
                   type="number"
                   name="quantity"
-                  placeholder='Quantity'
+                  placeholder="Quantity"
                   value={formData.quantity}
                   onChange={handleChange}
                   required
@@ -221,7 +223,7 @@ const PriceList = () => {
                   type="number"
                   name="price"
                   step="0.01"
-                  placeholder='Price of Qty.'
+                  placeholder="Price of Qty."
                   value={formData.price}
                   onChange={handleChange}
                   required
@@ -235,7 +237,7 @@ const PriceList = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default PriceList
+export default PriceList;

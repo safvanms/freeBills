@@ -12,7 +12,6 @@ export default function Header() {
       </p>
       <p className="contact">Contact : +91 81 56 928 557 | +91 79 07 132 007</p>
       <div className="line"></div>
-      
     </div>
   )
 }
