@@ -173,6 +173,7 @@
 
 .disabled_input {
   background-color: lightcoral;
+  cursor: not-allowed;
 }
 
 .dialogue__btn {

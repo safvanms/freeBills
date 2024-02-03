@@ -152,7 +152,7 @@ export default function Invoice() {
                   <tr key={item.time} className="invoice__data">
                     <td>{i + 1}</td>
                     <td style={item.advancePrice ? { color: "grey" } : null}>
-                      {item.particulars}
+                     {item.particulars}{item.advancePrice && " (Advance)"} 
                     </td>
                     <td>Rs. {item.price || item.advancePrice} /-</td>
                   </tr>
@@ -301,6 +301,7 @@ export default function Invoice() {
                   disabled={formData.price}
                   style={{ borderColor: "red" }}
                 />
+                <div style={{textAlign:"center" , fontSize:"9px" , marginTop:"4px"}}> Note : The advance will be automatically deducted from the total .</div>
               </div>
 
               <div className="dialogue__btn">

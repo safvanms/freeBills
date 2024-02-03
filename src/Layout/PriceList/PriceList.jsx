@@ -80,7 +80,7 @@ const PriceList = () => {
   const generatePDF = useReactToPrint({
     content: () => componentPDF.current,
     print: false,
-    fileName: `empireBill${currentTime}.pdf`
+    fileName: `empireBill${currentTime}.pdf`,
   });
 
   const getDownload = async () => {
