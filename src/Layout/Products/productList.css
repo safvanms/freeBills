@@ -11,6 +11,24 @@ select , option{
      width: 100%;
 }
 
+.dialog button {
+  padding: 10px;
+  width: 150px;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.delete_entry{
+  background-color: #b30e0e;
+}
+
+.delete_entry:hover {
+  background-color: #8c0707;
+}
+
+
 @media (max-width: 768px) {
   .table__container__products {
     width: 90%;

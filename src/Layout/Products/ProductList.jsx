@@ -63,6 +63,13 @@ const ProductList = () => {
     onClose(true);
   };
 
+  const handleDelete = (ID) => {
+    const filteredItems = data.filter((item) => item.id !== ID);
+    setData(filteredItems);
+    localStorage.setItem("products", JSON.stringify(filteredItems));
+    onClose();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editId) {
@@ -144,6 +151,8 @@ const ProductList = () => {
         </div>
       </div>
 
+      {/* modal section for CRUD */}
+
       {open && (
         <div className="dialog-container">
           <div className="dialog">
@@ -190,16 +199,34 @@ const ProductList = () => {
                 >
                   <option value="">Select unit</option>
                   <option value="Piece">Piece</option>
+                  <option value="Length">Length</option>
                   <option value="Feet">Feet</option>
                   <option value="Meter">Meter</option>
                   <option value="Kg">Kg</option>
                   <option value="Litre">Litre</option>
                   <option value="Box">Box</option>
+                  <option value="Pack">Pack</option>
                 </select>
               </div>
 
               <div className="dialogue__btn">
-                <button type="submit">Add</button>
+                <>
+                  <button
+                    type="submit"
+                    className={editId ? "add_entry" : "submit_entry"}
+                  >
+                    {editId ? "Update" : "Add"}
+                  </button>
+                  {editId && (
+                    <button
+                      type="submit"
+                      className="delete_entry"
+                      onClick={()=>handleDelete(editId)}
+                    >
+                      Delete
+                    </button>
+                  )}
+                </>
               </div>
             </form>
           </div>
